@@ -19,7 +19,7 @@ ScalarConverter &ScalarConverter::operator=(const ScalarConverter &src)
 
 bool isKeyword(const std::string &s)
 {
-	return (s == "-inff" || s == "+inff" || s == "nanf" || s == "-inf" || s == "+inf" || s == "nan");
+	return (s == "-inff" || s == "+inff" || s == "nanf" || s == "-inf" || s == "+inf" || s == "nan" || s == "inf" || s == "inff");
 }
 
 bool isDecimalPoint(const std::string &s, int i)
@@ -99,7 +99,10 @@ void printInt(const std::string &s)
 
 	if (s.size() == 1)
 	{
-		n = static_cast<int>(s[0]);
+		if (std::isdigit(s[0]))
+			n = s[0] - '0';
+		else
+			n = static_cast<int>(s[0]);
 		std::cout << n << std::endl;
 	}
 	else
@@ -109,6 +112,15 @@ void printInt(const std::string &s)
 		n = std::stoi(s, 0, 10);
 		std::cout << n << std::endl;
 	}
+}
+
+template <typename T>
+bool findDecimalPoint(T n)
+{
+	std::ostringstream oss;
+	oss << n;
+	std::string s = oss.str();
+	return (s.find('.') != std::string::npos);
 }
 
 void printFloat(const std::string &s)
@@ -121,10 +133,15 @@ void printFloat(const std::string &s)
 		std::cout << "-inff" << std::endl;
 	else if (s == "nan" || s == "nanf")
 		std::cout << "nanf" << std::endl;
+	if (isKeyword(s))
+		return;
 	else if (s.size() == 1)
 	{
-		f = static_cast<float>(s[0]);
-		std::cout << f << std::endl;
+		if (std::isdigit(s[0]))
+			f = s[0] - '0';
+		else
+			f = static_cast<float>(s[0]);
+		std::cout << f;
 	}
 	else
 	{
@@ -132,18 +149,10 @@ void printFloat(const std::string &s)
 			throw ScalarConverter::Impossible();
 		f = std::stof(s, 0);
 		std::cout << f;
-		if (f == static_cast<int>(f))
-			std::cout << ".0" ;
-		std::cout << "f" << std::endl;
 	}
-}
-
-bool findDecimalPoint(double d)
-{
-	std::ostringstream oss;
-	oss << d;
-	std::string s = oss.str();
-	return (s.find('.') != std::string::npos);
+	if (!findDecimalPoint(f))
+		std::cout << ".0";
+	std::cout << "f" << std::endl;
 }
 
 void printDouble(const std::string &s)
@@ -156,10 +165,15 @@ void printDouble(const std::string &s)
 		std::cout << "-inf" << std::endl;
 	else if (s == "nan" || s == "nanf")
 		std::cout << "nan" << std::endl;
+	if (isKeyword(s))
+		return;
 	else if (s.size() == 1)
 	{
-		d = static_cast<double>(s[0]);
-		std::cout << d << std::endl;
+		if (std::isdigit(s[0]))
+			d = s[0] - '0';
+		else
+			d = static_cast<double>(s[0]);
+		std::cout << d;
 	}
 	else
 	{
@@ -167,10 +181,10 @@ void printDouble(const std::string &s)
 			throw ScalarConverter::Impossible();
 		d = std::stod(s, 0);
 		std::cout << d;
-		if (!findDecimalPoint(d))
-			std::cout << ".0" ;
-		std::cout << std::endl;
 	}
+	if (!findDecimalPoint(d))
+		std::cout << ".0";
+	std::cout << std::endl;
 }
 
 void ScalarConverter::convert(const std::string &s)
@@ -212,3 +226,12 @@ void ScalarConverter::convert(const std::string &s)
 		std::cout << "Impossible" << std::endl;
 	}
 }
+
+// template <typename T>
+// bool findDecimalPoint(T n)
+// {
+// 	std::ostringstream oss;
+// 	oss << d;
+// 	std::string s = oss.str();
+// 	return (s.find('.') != std::string::npos);
+// }
