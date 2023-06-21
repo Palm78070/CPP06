@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScalarConverter.hpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
+/*   By: rthammat <rthammat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 23:20:24 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/20 22:09:25 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/21 22:37:13 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include <iostream>
 #include <cstring>
 #include <cctype>
+#include <string>
+#include <sstream>
 
 class ScalarConverter
 {
