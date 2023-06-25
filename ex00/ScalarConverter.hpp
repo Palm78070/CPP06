@@ -6,7 +6,7 @@
 /*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 23:20:24 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/22 02:33:09 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/26 01:52:42 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,6 @@ class ScalarConverter
 {
 public:
 	static void convert(const std::string &str);
-	// static char getChar(void);
-	// static int getInt(void);
-	// static float getFloat(void);
-	// static double getDouble(void);
-	// static void convertChar(const std::string &s);
 
 	class Impossible : public std::exception
 	{
@@ -41,11 +36,6 @@ private:
 	ScalarConverter();
 	ScalarConverter(const ScalarConverter &src);
 	ScalarConverter &operator=(const ScalarConverter &src);
-	// static std::string _input;
-	// static char _c;
-	// static int _n;
-	// static float _f;
-	// static double _d;
 };
 
 #endif

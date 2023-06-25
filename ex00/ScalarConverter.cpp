@@ -226,12 +226,3 @@ void ScalarConverter::convert(const std::string &s)
 		std::cout << "Impossible" << std::endl;
 	}
 }
-
-// template <typename T>
-// bool findDecimalPoint(T n)
-// {
-// 	std::ostringstream oss;
-// 	oss << d;
-// 	std::string s = oss.str();
-// 	return (s.find('.') != std::string::npos);
-// }
