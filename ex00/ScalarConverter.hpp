@@ -6,7 +6,7 @@
 /*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 23:20:24 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/26 01:52:42 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/28 01:38:27 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include <string>
 #include <sstream>
 
-// template <typename T>
-
 class ScalarConverter
 {
 public:
@@ -29,7 +27,7 @@ public:
 	class Impossible : public std::exception
 	{
 	public:
-		virtual const char *what() const throw() { return "Impossible"; }
+		virtual const char *what() const throw();
 	};
 
 private:
@@ -37,5 +35,14 @@ private:
 	ScalarConverter(const ScalarConverter &src);
 	ScalarConverter &operator=(const ScalarConverter &src);
 };
+
+template <typename T>
+bool findDecimalPoint(T n)
+{
+	std::ostringstream oss;
+	oss << n;
+	std::string s = oss.str();
+	return (s.find('.') != std::string::npos);
+}
 
 #endif

@@ -85,7 +85,14 @@ void printChar(const std::string &s)
 	{
 		if (!isNum(s))
 			throw ScalarConverter::Impossible();
-		c = std::stoi(s, 0, 10);
+		try
+		{
+			c = std::stoi(s, 0, 10);
+		}
+		catch (std::exception &)
+		{
+			throw ScalarConverter::Impossible();
+		}
 		if (!std::isprint(c))
 			std::cout << "Non displayable" << std::endl;
 		else
@@ -109,18 +116,16 @@ void printInt(const std::string &s)
 	{
 		if (!isNum(s))
 			throw ScalarConverter::Impossible();
-		n = std::stoi(s, 0, 10);
+		try
+		{
+			n = std::stoi(s, 0, 10);
+		}
+		catch (std::exception &)
+		{
+			throw ScalarConverter::Impossible();
+		}
 		std::cout << n << std::endl;
 	}
-}
-
-template <typename T>
-bool findDecimalPoint(T n)
-{
-	std::ostringstream oss;
-	oss << n;
-	std::string s = oss.str();
-	return (s.find('.') != std::string::npos);
 }
 
 void printFloat(const std::string &s)
@@ -147,7 +152,14 @@ void printFloat(const std::string &s)
 	{
 		if (!isNum(s))
 			throw ScalarConverter::Impossible();
-		f = std::stof(s, 0);
+		try
+		{
+			f = std::stof(s, 0);
+		}
+		catch (std::exception &)
+		{
+			throw ScalarConverter::Impossible();
+		}
 		std::cout << f;
 	}
 	if (!findDecimalPoint(f))
@@ -179,7 +191,14 @@ void printDouble(const std::string &s)
 	{
 		if (!isNum(s))
 			throw ScalarConverter::Impossible();
-		d = std::stod(s, 0);
+		try
+		{
+			d = std::stod(s, 0);
+		}
+		catch (std::exception &)
+		{
+			throw ScalarConverter::Impossible();
+		}
 		std::cout << d;
 	}
 	if (!findDecimalPoint(d))
@@ -194,35 +213,40 @@ void ScalarConverter::convert(const std::string &s)
 	{
 		printChar(s);
 	}
-	catch (ScalarConverter::Impossible::exception &e)
+	catch (ScalarConverter::Impossible &e)
 	{
-		std::cout << "Impossible" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << "int: ";
 	try
 	{
 		printInt(s);
 	}
-	catch (ScalarConverter::Impossible::exception &e)
+	catch (ScalarConverter::Impossible &e)
 	{
-		std::cout << "Impossible" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << "float: ";
 	try
 	{
 		printFloat(s);
 	}
-	catch (ScalarConverter::Impossible::exception &e)
+	catch (ScalarConverter::Impossible &e)
 	{
-		std::cout << "Impossible" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
 	std::cout << "double: ";
 	try
 	{
 		printDouble(s);
 	}
-	catch (ScalarConverter::Impossible::exception &e)
+	catch (ScalarConverter::Impossible &e)
 	{
-		std::cout << "Impossible" << std::endl;
+		std::cout << e.what() << std::endl;
 	}
+}
+
+const char *ScalarConverter::Impossible::what() const throw()
+{
+	return ("Impossible");
 }
