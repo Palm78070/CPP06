@@ -6,7 +6,7 @@
 /*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 00:49:08 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/26 01:45:22 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/28 01:51:06 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,15 @@ void identify(Base *p)
 	if (dynamic_cast<B *>(p) != NULL)
 		std::cout << "B" << std::endl;
 	if (dynamic_cast<C *>(p) != NULL)
+		std::cout << "C" << std::endl;
+}
+
+void identify(Base &p)
+{
+	if (dynamic_cast<A *>(&p) != NULL)
+		std::cout << "A" << std::endl;
+	if (dynamic_cast<B *>(&p) != NULL)
+		std::cout << "B" << std::endl;
+	if (dynamic_cast<C *>(&p) != NULL)
 		std::cout << "C" << std::endl;
 }
