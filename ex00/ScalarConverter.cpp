@@ -22,29 +22,6 @@ bool isKeyword(const std::string &s)
 	return (s == "-inff" || s == "+inff" || s == "nanf" || s == "-inf" || s == "+inf" || s == "nan" || s == "inf" || s == "inff");
 }
 
-bool isDecimalPoint(const std::string &s, int i)
-{
-	if (i == 0 || i == (int)(s.size()) - 1 || !std::isdigit(s[i - 1]) || !std::isdigit(s[i + 1]))
-		return (false);
-	return (true);
-}
-
-bool isFDecimal(const std::string &s, int i)
-{
-	int isDot = 0;
-	for (int index = i; index > 0; --index)
-	{
-		if (s[index] == '.')
-		{
-			isDot = 1;
-			break;
-		}
-	}
-	if (i == 0 || !std::isdigit(s[i - 1]) || !isDot || i < (int)(s.size()) - 1)
-		return (false);
-	return (true);
-}
-
 bool isNum(const std::string &s)
 {
 	int i = 0;
@@ -151,8 +128,6 @@ void printFloat(const std::string &s)
 	else if (s == "-inf" || s == "-inff")
 		std::cout << "-inff" << std::endl;
 	else if (s == "nan" || s == "nanf")
-		std::cout << "nanf" << std::endl;
-	if (s == "nan" || s == "nanf")
 		std::cout << "nanf" << std::endl;
 	if (isKeyword(s))
 		return;
