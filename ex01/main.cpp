@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
+/*   By: rthammat <rthammat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/25 17:48:44 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/25 22:20:15 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:05:12 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(void)
 {

@@ -50,13 +50,20 @@ bool isNum(const std::string &s)
 	int i = 0;
 	while (s[i] == '+' || s[i] == '-')
 		++i;
+	if (!std::isdigit(s[i]) && s[i] != '.')
+		return (false);
 	while (s[i])
 	{
 		if ((!std::isdigit(s[i]) && s[i] != '.' && s[i] != 'f'))
 			return (false);
-		if (s[i] == '.' && !isDecimalPoint(s, i))
-			return (false);
-		if (s[i] == 'f' && !isFDecimal(s, i))
+		if (s[i] == '.')
+		{
+			if (i >= (int)(s.size()) - 1)
+				return (false);
+			if (!std::isdigit(s[i + 1]) && s[i + 1] != 'f')
+				return (false);
+		}
+		if (s[i] == 'f' && i < (int)(s.size()) - 1)
 			return (false);
 		++i;
 	}
@@ -71,6 +78,7 @@ bool isChar(const std::string &s)
 void printChar(const std::string &s)
 {
 	char c = 0;
+	double input = atof(s.c_str());
 
 	if (isKeyword(s))
 		throw ScalarConverter::Impossible();
@@ -87,7 +95,9 @@ void printChar(const std::string &s)
 			throw ScalarConverter::Impossible();
 		try
 		{
-			c = std::stoi(s, 0, 10);
+			if (!isascii(static_cast<int>(input)))
+				throw ScalarConverter::Impossible();
+			c = static_cast<int>(input);
 		}
 		catch (std::exception &)
 		{
@@ -103,6 +113,7 @@ void printChar(const std::string &s)
 void printInt(const std::string &s)
 {
 	int n = 0;
+	double input = atof(s.c_str());
 
 	if (s.size() == 1)
 	{
@@ -118,7 +129,9 @@ void printInt(const std::string &s)
 			throw ScalarConverter::Impossible();
 		try
 		{
-			n = std::stoi(s, 0, 10);
+			if (input > INT_MAX|| input < INT_MIN)
+				throw ScalarConverter::Impossible();
+			n = static_cast<int>(input);
 		}
 		catch (std::exception &)
 		{
@@ -131,12 +144,15 @@ void printInt(const std::string &s)
 void printFloat(const std::string &s)
 {
 	float f = 0;
+	double input = atof(s.c_str());
 
 	if (s == "inf" || s == "inff" || s == "+inf" || s == "+inff")
 		std::cout << "+inff" << std::endl;
 	else if (s == "-inf" || s == "-inff")
 		std::cout << "-inff" << std::endl;
 	else if (s == "nan" || s == "nanf")
+		std::cout << "nanf" << std::endl;
+	if (s == "nan" || s == "nanf")
 		std::cout << "nanf" << std::endl;
 	if (isKeyword(s))
 		return;
@@ -154,7 +170,7 @@ void printFloat(const std::string &s)
 			throw ScalarConverter::Impossible();
 		try
 		{
-			f = std::stof(s, 0);
+			f = static_cast<float>(input);
 		}
 		catch (std::exception &)
 		{
@@ -162,7 +178,7 @@ void printFloat(const std::string &s)
 		}
 		std::cout << f;
 	}
-	if (!findDecimalPoint(f))
+	if (!findDecimalPoint(f) && (f - static_cast<int>(f) == 0))
 		std::cout << ".0";
 	std::cout << "f" << std::endl;
 }
@@ -193,7 +209,7 @@ void printDouble(const std::string &s)
 			throw ScalarConverter::Impossible();
 		try
 		{
-			d = std::stod(s, 0);
+			d = atof(s.c_str());
 		}
 		catch (std::exception &)
 		{
@@ -201,7 +217,7 @@ void printDouble(const std::string &s)
 		}
 		std::cout << d;
 	}
-	if (!findDecimalPoint(d))
+	if (!findDecimalPoint(d) && (d - static_cast<int>(d) == 0))
 		std::cout << ".0";
 	std::cout << std::endl;
 }
