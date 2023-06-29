@@ -16,7 +16,7 @@
 
 int main(void)
 {
-	Data *data = (Data *)malloc(sizeof(Data));
+	Data *data = new Data();
 	Data *data2 = NULL;
 	uintptr_t n;
 
@@ -33,7 +33,7 @@ int main(void)
 	if (data)
 	{
 		std::cout << "free data" << std::endl;
-		free(data);
+		delete data;
 	}
 	return (0);
 }
