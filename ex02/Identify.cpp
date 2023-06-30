@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Identify.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rthammat <rthammat@42.fr>                  +#+  +:+       +#+        */
+/*   By: rthammat <rthammat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 00:49:08 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/28 01:51:06 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/06/30 20:30:18 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,29 @@ void identify(Base *p)
 
 void identify(Base &p)
 {
-	if (dynamic_cast<A *>(&p) != NULL)
+	try
+	{
+		A &a = dynamic_cast<A &>(p);
 		std::cout << "A" << std::endl;
-	if (dynamic_cast<B *>(&p) != NULL)
-		std::cout << "B" << std::endl;
-	if (dynamic_cast<C *>(&p) != NULL)
-		std::cout << "C" << std::endl;
+		(void)a;
+	}
+	catch (...)
+	{
+		try
+		{
+			B &b = dynamic_cast<B &>(p);
+			std::cout << "B" << std::endl;
+			(void)b;
+		}
+		catch (...)
+		{
+			try
+			{
+				C &c = dynamic_cast<C &>(p);
+				std::cout << "C" << std::endl;
+				(void)c;
+			}
+			catch(...){}
+		}
+	}
 }
