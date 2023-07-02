@@ -6,7 +6,7 @@
 /*   By: rthammat <rthammat@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 00:49:08 by rthammat          #+#    #+#             */
-/*   Updated: 2023/06/30 20:30:18 by rthammat         ###   ########.fr       */
+/*   Updated: 2023/07/02 18:47:29 by rthammat         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,22 @@ void identify(Base &p)
 		A &a = dynamic_cast<A &>(p);
 		std::cout << "A" << std::endl;
 		(void)a;
+		return;
 	}
-	catch (...)
+	catch (...){}
+	try
 	{
-		try
-		{
-			B &b = dynamic_cast<B &>(p);
-			std::cout << "B" << std::endl;
-			(void)b;
-		}
-		catch (...)
-		{
-			try
-			{
-				C &c = dynamic_cast<C &>(p);
-				std::cout << "C" << std::endl;
-				(void)c;
-			}
-			catch(...){}
-		}
+		B &b = dynamic_cast<B &>(p);
+		std::cout << "B" << std::endl;
+		(void)b;
+		return;
 	}
+	catch (...){}
+	try
+	{
+		C &c = dynamic_cast<C &>(p);
+		std::cout << "C" << std::endl;
+		(void)c;
+	}
+	catch(...){}
 }
